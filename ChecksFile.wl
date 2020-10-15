@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*User Initialization*)
 
 
@@ -42,28 +42,28 @@ outfolder = outpath<>filename;
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Regression test for growth rate over a range of wavenumbers. The new results (blue) should match the old results (orange).*)
 
 
 (*Test on kAdapt. Comparing to old data (below). Generates a plot which should look similar (different exact k values tested*)
-OldData={{3.943351801881396`*^-20,0},{6.403122930332929`*^-20,0},{1.0397242072440586`*^-19,6.475185304707499`*^-23},{1.6882799828943322`*^-19,0},
-{2.7413897654617433`*^-19,1.2805250574405962`*^-19},{4.451404934206825`*^-19,2.149878747929582`*^-19},{7.228087788874928`*^-19,2.877126337699488`*^-19},
-{1.173680082038912`*^-18,3.418162146974343`*^-19},{1.9057944164639052`*^-18,3.5031848436345418`*^-19},{3.0945846431298252`*^-18,2.6089021800081186`*^-19},
-{5.02491456096483`*^-18,7.0760561598301275`*^-22},{8.159339380505439`*^-18,7.514263464205905`*^-22},{1.3248945493211215`*^-17,7.789552045160011`*^-22},
-{2.1513329510655564`*^-17,7.961350592910255`*^-22},{3.493284404190471`*^-17,8.068054415566711`*^-22},{5.672313958895247`*^-17,8.134119405806582`*^-22},
-{9.210571463829571`*^-17,8.174940729310282`*^-22},{1.4955911697601837`*^-16,8.200132465051396`*^-22},{2.4285061527926315`*^-16,8.215666277345043`*^-22},
-{3.9433518018813854`*^-16,8.225240355557669`*^-22},{-3.943351801881396`*^-20,1.2187126603736879`*^-22},{-1.0972610632535474`*^-19,3.174638959109932`*^-20},
-{-3.053194088231941`*^-19,5.832887809619426`*^-20},{-8.495693916972988`*^-19,1.851851392271892`*^-21},{-2.3639772986947037`*^-18,1.1000927210473065`*^-21},
-{-6.577907259087188`*^-18,9.189580059662592`*^-22},{-1.830341769061953`*^-17,8.575191336733617`*^-22},{-5.0930346987557535`*^-17,8.360035843249597`*^-22},
-{-1.4171671586789936`*^-16,8.283420407361107`*^-22},{-3.9433518018813854`*^-16,8.255976606410335`*^-22}};
+OldData={{3.943351801881396`*^-20,0},{6.403122930332929`*^-20,0},{1.0397242072440586`*^-19,6.475185304707499`*^-23},{1.6882799828943322`*^-19,0},{2.7413897654617433`*^-19,1.2805250574405962`*^-19},
+{4.451404934206825`*^-19,2.149878747929582`*^-19},{7.228087788874928`*^-19,2.877126337699488`*^-19},{1.173680082038912`*^-18,3.418162146974343`*^-19},{1.9057944164639052`*^-18,3.5031848436345418`*^-19},
+{3.0945846431298252`*^-18,2.6089021800081186`*^-19},{5.02491456096483`*^-18,7.0760561598301275`*^-22},{8.159339380505439`*^-18,7.514263464205905`*^-22},{1.3248945493211215`*^-17,7.789552045160011`*^-22},
+{2.1513329510655564`*^-17,7.961350592910255`*^-22},{3.493284404190471`*^-17,8.068054415566711`*^-22},{5.672313958895247`*^-17,8.134119405806582`*^-22},{9.210571463829571`*^-17,8.174940729310282`*^-22},
+{1.4955911697601837`*^-16,8.200132465051396`*^-22},{2.4285061527926315`*^-16,8.215666277345043`*^-22},{3.9433518018813854`*^-16,8.225240355557669`*^-22},{-3.943351801881396`*^-20,1.2187126603736879`*^-22},
+{-6.403122930332929`*^-20,7.691141781968944`*^-22},{-1.0397242072440586`*^-19,2.607457007692258`*^-20},{-1.6882799828943322`*^-19,5.587693993721637`*^-20},{-2.7413897654617433`*^-19,6.185616237315653`*^-20},
+{-4.451404934206825`*^-19,5.810765742537203`*^-20},{-7.228087788874928`*^-19,1.6819680254319893`*^-20},{-1.173680082038912`*^-18,1.1963573929349437`*^-21},{-1.9057944164639052`*^-18,1.1670703933149374`*^-21},
+{-3.0945846431298252`*^-18,1.0322217805945945`*^-21},{-5.02491456096483`*^-18,9.494282367992625`*^-22},{-8.159339380505439`*^-18,9.001232424984445`*^-22},{-1.3248945493211215`*^-17,8.704722289137772`*^-22},
+{-2.1513329510655564`*^-17,8.524818134192752`*^-22},{-3.493284404190471`*^-17,8.415032243261679`*^-22},{-5.672313958895247`*^-17,8.347797496201637`*^-22},{-9.210571463829571`*^-17,8.306532421569712`*^-22},
+{-1.4955911697601837`*^-16,8.281172359470442`*^-22},{-2.4285061527926315`*^-16,8.265574524679777`*^-22},{-3.9433518018813854`*^-16,8.255976606410335`*^-22}};
 kdebug=Module[{data,ri=200,testE=20,hi=-1,kvar,nstep=20},
 file=inpath<>"1D_withV_withPairBrems_DO.h5";
 (*SCalcScale[ImportData[inpath<>file<>".h5"],ri,testE,hi,0][[3]]//MatrixForm*)
 (*buildkGrid[ImportData[inpath<>file<>".h5"],ri,testE,hi,40]*)
 kAdapt[file,ri,ri,testE,hi,nstep,"xflavor"-> False]
 ];
-debugdata=Transpose@{kdebug[[1,All,3]],Table[kdebug[[1,All,4,1]][[i]]//Im//Max,{i,1,30}]};
+debugdata=Transpose@{kdebug[[1,All,3]],Table[kdebug[[1,All,4,1]][[i]]//Im//Max,{i,1,40}]};
 plot1=ListLogPlot[{debugdata},ImageSize-> Scaled[0.25]]; (*Current data as calculated by kadapt*)
 plot2=ListLogPlot[{OldData},ImageSize-> Scaled[0.25]]; (*Old reference data set*)
 diffplot=ListPlot[debugdata[[All,2]]-OldData[[All,2]],Joined-> True,ImageSize->Scaled[0.25]]; (*Plot of the difference between OldData and current data*)
@@ -73,7 +73,7 @@ rowplot=GraphicsRow[{plot1,plot2,diffplot},Frame-> True];
 
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Two-beam test. Initialize data with neutrinos moving right and antineutrinos moving left. The real and imaginary parts of the eigenvalues should match the theoretical results from Chakraborty+2016 (Self-induced neutrino flavor conversion without flavor mixing)*)
 
 
@@ -105,15 +105,15 @@ cm[k_,\[Mu]ch_,w_]:=DiagonalMatrix[{w+k,-w-k,w-k,-w+k}]+2 \[Mu]ch{{l+lb,-lb,-l,0
 cma[k_,\[Mu]ch_,a_,w_]:=cm[k,\[Mu]ch,w]/.{rb-> 0.,l-> 0.,r-> (1+a),lb-> -(1-a)};
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Real Data 4 beam 2 angle binning*)
 
 
 realdatato4beam[datasr_]:=Module[{S2ba,S2b,data2b,nulefts,nublefts,nurights,nubrights},
 nulefts=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,1,5}];
-nurights=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,11}];
-nublefts=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,1,5}];
-nubrights=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,11}];
+nurights=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,10}];
+nublefts=Sum[Sum[Sum[datasr["Endensity"][[2,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,1,5}];
+nubrights=Sum[Sum[Sum[datasr["Endensity"][[2,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,10}];
 data2b=
  Association[
 "muss"-> {-1,0,1},
@@ -134,7 +134,7 @@ Return[S2b]
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Preliminaries for Dispersion Checks*)
 
 
@@ -215,7 +215,18 @@ Return[dispersionCheck[data,cos\[Theta],\[CapitalOmega],k,En,xflavor]]
 ];
 
 
-(* ::Subsection:: *)
+testreal4bdispersionCheck[k_,En_,xflavor_]:=Module[{cos\[Theta],I0,I1,I2,\[CapitalOmega],data,equations,datasr,rebindata},
+data = ImportData[inpath <> "112Msun_100ms_DO.h5"];
+datasr=SelectSingleRadius[data,250];
+rebindata=realdatato4beam[datasr];
+cos\[Theta]=rebindata["mids"];
+equations = getEquations[rebindata,En,-1.,k,"xflavor"->xflavor];
+\[CapitalOmega]=evscale[k,stabilityMatrix[rebindata,equations,"xflavor"->xflavor],kx,"output"-> "Eigenvalues"][[1]];
+Return[dispersionCheck[rebindata,cos\[Theta],\[CapitalOmega],k,En,xflavor]]
+];
+
+
+(* ::Subsection::Closed:: *)
 (*Real data dispersion check*)
 
 
@@ -252,37 +263,31 @@ Return[Transpose@{dischecks,mindiff[[1;;2]],test\[CapitalOmega]s[[1;;2]]}];
 
 (*Calls realdatadispcalc and performs the logic for the check on whether the disp checks are passing*)
 (*Returns a list of true/false for whether the test passed*)
-realdatadispersioncheck[infile_,hdffile_,ri_]:=Module[{dispouts,checks,ans},
+realdatadispersioncheck[infile_,hdffile_,ri_]:=Module[{dispouts,checks,ans,dispcond},
 dispouts=realdatadispcalc[infile,hdffile,ri];
 (*Check each pair, returns true if the disp passes OR the percent difference is very small.*)
 (*This collects whether or not the check should pass, conditionally or naturally*)
 checks=Table[dispouts[[j,1]]<10^(-3) \[Or] dispouts[[j,2]]< 10^(-10), {j,1,Length[dispouts]}];
-
 ans=Apply[And,checks];	(*Checks whether all elements of checks are true*)
-Return[ans];
-];
-
-
-(*Returns a list of true/false. True=actually passed/failed. False=passed artificially because acknowledging denominator subtractive cancellation*)
-realdatadispersioncheckcondition[infile_,hdffile_,ri_]:=Module[{dispouts,dispcond},
-dispouts=realdatadispcalc[infile,hdffile,ri];
+(*Discond is using for determining the condition by which the check passes.*)
 dispcond=Reap[
 	Do[
 		Sow[{dispouts[[j,3]],
-			Which[dispouts[[j,1]]<10^-3, True,
-				dispouts[[j,2]]< 10^-10 \[And] dispouts[[j,1]]>10^-3,False
+			Which[dispouts[[j,1]]<10^-3, "Natural Pass",
+				dispouts[[j,2]]< 10^-10 \[And] dispouts[[j,1]]>10^-3,"Conditional Pass"
 				](*Close Which*)
 			} (*Close ordered pair in sow*)
 		] (*Close sow*)
 	,{j,1,Length[dispouts]}
 	] 
 ][[2,1]];
-
-Return[dispcond]
+(*Print a grid with first row of eignevalues and second row pass conditions.*)
+Grid[{{hdffile,SpanFromLeft},dispcond[[All,1]],dispcond[[All,2]]},Frame-> All]//Print;
+Return[ans];
 ];
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Check that ellipse construction results in the correct moments given hand-chosen moments*)
 
 
@@ -304,25 +309,22 @@ Return[ellipsefiterrors[moms[[1]],moms[[2]]//Abs,moms[[3]]]]
 (*Imports real CSSN data and then calls ellipse fit errors for the tests file*)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Test Report*)
 
 
 (* Generate the data for the dispersion check*)
 dispersionCheckRi=250;
-outevs = kAdapt[inpath <> "112Msun_100ms_DO.h5", dispersionCheckRi, dispersionCheckRi, Infinity, -1., 1, "xflavor" -> False];
-exportkadapt[outevs,"112Msun_100ms_r200_r300_now_nox" ]
-outevs = kAdapt[inpath <> "112Msun_100ms_DO.h5", dispersionCheckRi, dispersionCheckRi, 20., -1., 1,"xflavor" -> False];
-exportkadapt[outevs,"112Msun_100ms_r200_r300_nox"]
+(*Note, I changed this to take 2 ksteps, as otherwise there's an error from the way the formula for the log spacing is calculated (1/0 error)*)
+outevs = kAdapt[inpath <> "112Msun_100ms_DO.h5", dispersionCheckRi, dispersionCheckRi, Infinity, -1., 2, "xflavor" -> False]; 
+exportkadapt[outevs,"112Msun_100ms_r200_r300_now_nox_test" ]
+outevs = kAdapt[inpath <> "112Msun_100ms_DO.h5", dispersionCheckRi, dispersionCheckRi, 20., -1., 2,"xflavor" -> False];
+exportkadapt[outevs,"112Msun_100ms_r200_r300_nox_test"]
 
 
 Timing[tr=TestReport["testfiles.wlt"];]
 Show[rowplot]
-Table[tr["TestResults"][i],{i,1,11}]//MatrixForm
-rddcnow=realdatadispersioncheckcondition[inpath<>"112Msun_100ms_DO.h5","112Msun_100ms_r200_r300_now_nox.h5",dispersionCheckRi]; (*Check with no \[Omega]*)
-rddc=realdatadispersioncheckcondition[inpath<>"112Msun_100ms_DO.h5","112Msun_100ms_r200_r300_nox.h5",dispersionCheckRi]; (*Check with nonzero \[Omega]*)
-Grid[{rddcnow[[All,1]],rddcnow[[All,2]]},Frame-> All] (*Grid of eigenvalues and pass method; True=> Passes naturally, False=> Passes conditionally. If test in .wlt fails totally, then this chart is meaningless*)
-Grid[{rddc[[All,1]],rddc[[All,2]]},Frame-> All]
+Table[tr["TestResults"][i],{i,1,13}]//MatrixForm
 
 
 
