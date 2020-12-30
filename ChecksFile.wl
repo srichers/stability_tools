@@ -42,6 +42,9 @@ outfolder = outpath<>filename;
 
 
 
+
+
+
 (* ::Subsection::Closed:: *)
 (*Regression test for growth rate over a range of wavenumbers. The new results (blue) should match the old results (orange).*)
 
@@ -62,15 +65,35 @@ file=inpath<>"1D_withV_withPairBrems_DO.h5";
 (*SCalcScale[ImportData[inpath<>file<>".h5"],ri,testE,hi,0][[3]]//MatrixForm*)
 (*buildkGrid[ImportData[inpath<>file<>".h5"],ri,testE,hi,40]*)
 kAdapt[file,ri,ri,testE,hi,nstep,"xflavor"-> False]
-];
+]
 debugdata=Transpose@{kdebug[[1,All,3]],Table[kdebug[[1,All,4,1]][[i]]//Im//Max,{i,1,40}]};
 plot1=ListLogPlot[{debugdata},ImageSize-> Scaled[0.25]]; (*Current data as calculated by kadapt*)
 plot2=ListLogPlot[{OldData},ImageSize-> Scaled[0.25]]; (*Old reference data set*)
 diffplot=ListPlot[debugdata[[All,2]]-OldData[[All,2]],Joined-> True,ImageSize->Scaled[0.25]]; (*Plot of the difference between OldData and current data*)
-rowplot=GraphicsRow[{plot1,plot2,diffplot},Frame-> True];
+rowplot=GraphicsRow[{plot1,plot2,diffplot},Frame-> True]
 
 
 
+
+
+(* ::InheritFromParent:: *)
+(*Graphics[{{}, {Inset[Graphics[{{}, {}, {{}, {}}}, AspectRatio -> GoldenRatio^(-1), Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0., -1.1565113500597373`}, DisplayFunction -> Identity, Frame -> {{False, False}, {False, False}}, FrameLabel -> {{None, None}, {None, None}}, FrameTicks -> {{Charting`ScaledTicks[{Log, Exp}], Charting`ScaledFrameTicks[{Identity, Identity}]}, {Automatic, Automatic}}, GridLines -> {None, None}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImagePadding -> {{5.671874999999986, 3.671875}, {15.931461996864073`, 0.5}}, ImageSize -> Scaled[0.25], Method -> {"OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, "CoordinatesToolOptions" -> {"DisplayFunction" -> ({Identity[Part[#, 1]], Exp[Part[#, 2]]}& ), "CopiedValueFunction" -> ({Identity[Part[#, 1]], Exp[Part[#, 2]]}& )}}, PlotRange -> {{-1, 1}, {-1.1565113500597373`, 1}}, PlotRangeClipping -> True, PlotRangePadding -> {{Scaled[0.02], Scaled[0.02]}, {Scaled[0.02], Scaled[0.05]}}, Ticks -> {Automatic, Charting`ScaledTicks[{Log, Exp}]}], {134.9125, -89.25}, ImageScaled[{0.5, 0.5}], {251, 170}], Inset[Graphics[{{}, {{RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], AbsoluteThickness[1.6], Point[CompressedData["*)
+(*1:eJxTTMoPSmViYGBQBWIQPb8ySer9+n/WXtsV527t9jxQrpu6P8xKxCaXW7vJ*)
+(*5oDrgVOXv6y2zlGwkb4exveq1vXA9XsCKXtWadm4eUpLzotwPbCtY7t6zzJT*)
+(*m0cxJef7nVwPzDe4yflusqNNFPuK7Vn2rgfWsIQtftjlY/M/QeG2SqrrgR4p*)
+(*Adt4nXAbi54FG+ZFehyQ/N7ZmHMhyebRA5sTbwM9Dky94cR5pifP5sx9q+NB*)
+(*vh4HTIP0LOaerbBJtTN+3+7lceCi9usOXeUWm6Btu1df9vA44K8sfCE3coJN*)
+(*bd7swhPuHgdS99oeMu6ZZfNhd0aGCpC/NVnlzcHepTZMIn+n7nfzONBzSW72*)
+(*2fqNNgYaOpMagfze3Jc2xll7bOaesc+IBvI5gg6Hsbk/391jUc9x2MrzQN12*)
+(*YSmBZ5923/nxIOWzn8cBaHjtnvj9tdynbrcD0uWrTVVecey5rGy9OEnLDRZ+*)
+(*exZ+3lIYL+sGC789F7NKX8arusHCb8+iPde+8x9xg4XfnhaTjVPSxDxg4bfH*)
+(*ujtq1yRJD1j47XFjvCnqpekBC7892d+/Hv9rDA+/PQUzztletIKH357sP5ZX*)
+(*pezh4bdn5fYDGscd4eG3566s6rN8Z3j47cmc/OVQmQs8/PboWM9QkXSFh98e*)
+(*M/7MsFpXePjtce1vkN3tCg+/PUZyn/QfAvkAe6IgFA==*)
+(*"]]}, {{RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], AbsoluteThickness[1.6]}, {}}, {{RGBColor[0.368417, 0.506779, 0.709798], PointSize[0.012833333333333334`], AbsoluteThickness[1.6]}, {}}}, {{}, {}}}, AspectRatio -> GoldenRatio^(-1), Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, -51.76416848606965}, DisplayFunction -> Identity, Frame -> {{False, False}, {False, False}}, FrameLabel -> {{None, None}, {None, None}}, FrameTicks -> {{Charting`ScaledTicks[{Log, Exp}], Charting`ScaledFrameTicks[{Identity, Identity}]}, {Automatic, Automatic}}, GridLines -> {None, None}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImagePadding -> {{0.5, 2.000060757754767}, {15.931461996864073`, 0.5}}, ImageSize -> Scaled[0.25], Method -> {"OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, "CoordinatesToolOptions" -> {"DisplayFunction" -> ({Identity[Part[#, 1]], Exp[Part[#, 2]]}& ), "CopiedValueFunction" -> ({Identity[Part[#, 1]], Exp[Part[#, 2]]}& )}}, PlotRange -> {{-8.605331804262226*^-17, 8.605331804262226*^-17}, {-51.76416848606965, -42.49544425682571}}, PlotRangeClipping -> True, PlotRangePadding -> {{Scaled[0.02], Scaled[0.02]}, {Scaled[0.02], Scaled[0.05]}}, Ticks -> {Automatic, Charting`ScaledTicks[{Log, Exp}]}], {404.73749999999995`, -89.25}, ImageScaled[{0.5, 0.5}], {251, 170}], Inset[Graphics[{{}, {}, {{}, {}}}, AspectRatio -> GoldenRatio^(-1), Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0., 0}, DisplayFunction -> Identity, Frame -> {{False, False}, {False, False}}, FrameLabel -> {{None, None}, {None, None}}, FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, GridLines -> {None, None}, GridLinesStyle -> Directive[GrayLevel[0.5, 0.4]], ImagePadding -> {{5.671875, 3.6718750000000284`}, {15.931461996864073`, 0.5}}, ImageSize -> Scaled[0.25], Method -> {"OptimizePlotMarkers" -> True, "OptimizePlotMarkers" -> True, "CoordinatesToolOptions" -> {"DisplayFunction" -> ({Identity[Part[#, 1]], Identity[Part[#, 2]]}& ), "CopiedValueFunction" -> ({Identity[Part[#, 1]], Identity[Part[#, 2]]}& )}}, PlotRange -> {{-1, 1}, {-1, 1}}, PlotRangeClipping -> True, PlotRangePadding -> {{Scaled[0.02], Scaled[0.02]}, {Scaled[0.05], Scaled[0.05]}}, Ticks -> {Automatic, Automatic}], {674.5625, -89.25}, ImageScaled[{0.5, 0.5}], {251, 170}]}, Style[{{}, {Line[{{0, 0}, {0, -178.5}}], Line[{{809.4749999999999, 0}, {809.4749999999999, -178.5}}], Line[{{0, 0}, {269.825, 0}}], Line[{{269.825, 0}, {539.65, 0}}], Line[{{539.65, 0}, {809.4749999999999, 0}}], Line[{{0, -178.5}, {269.825, -178.5}}], Line[{{269.825, -178.5}, {539.65, -178.5}}], Line[{{539.65, -178.5}, {809.4749999999999, -178.5}}]}}, Antialiasing -> False]}, ImageSize -> {UpTo[600], UpTo[155]}, PlotRange -> {{0, 809.4749999999999}, {-178.5, 0}}, PlotRangePadding -> {6, 5}]*)
+
+
+?kAdapt
 
 
 (* ::Subsection::Closed:: *)
@@ -91,6 +114,19 @@ data2b=
  "munits"-> munits
 ]
 ];
+get2bdatax[]:=Module[{S2ba,S2b,data2b},
+data2b=
+ Association[
+"muss"-> {-1,0,1},
+"matters"-> 0.,
+"Yes"-> 0.,
+"mids"-> {-1,1},
+"freqs"->{0,2},
+"Endensity"->{{{{0., 0.},{(1+a)/(munits/( h)),0.}}},{{{(1-a)/(munits/(h)),0.},{0.,0.}}}},
+ "freqmid"-> {1},
+ "munits"-> munits
+]
+];
 (*builds a 4x4 matrix with the two beam data, then reduces the size of the matrix *)
 build2bMatrix[En_,k_]:=Module[{fakeEn,S2ba,S2b},
 S2ba=stabilityMatrix[get2bdata[],getEquations[get2bdata[],En,-1.,k,"xflavor"-> False],"xflavor"-> False];
@@ -106,73 +142,40 @@ cma[k_,\[Mu]ch_,a_,w_]:=cm[k,\[Mu]ch,w]/.{rb-> 0.,l-> 0.,r-> (1+a),lb-> -(1-a)};
 
 
 (* ::Subsection::Closed:: *)
-(*Real Data 4 beam 2 angle binning*)
-
-
-realdatato4beam[datasr_]:=Module[{S2ba,S2b,data2b,nulefts,nublefts,nurights,nubrights},
-nulefts=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,1,5}];
-nurights=Sum[Sum[Sum[datasr["Endensity"][[1,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,10}];
-nublefts=Sum[Sum[Sum[datasr["Endensity"][[2,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,1,5}];
-nubrights=Sum[Sum[Sum[datasr["Endensity"][[2,f,dt,dp]]/ (h (datasr["freqmid"][[f]])) ,{f,1,Length[datasr["freqs"]]-1}],{dp,1,Length[datasr["phis"]]-1}],{dt,6,10}];
-data2b=
- Association[
-"muss"-> {-1,0,1},
-"matters"-> 0.,
-"Yes"-> 0.,
-"mids"-> {-1,1},
-"freqs"->{0,2},
-"Endensity"-> munits{{{{nulefts, 0.},{nurights,0.}}},{{{nublefts,0.},{nubrights,0.}}}},
- "freqmid"-> {1},
- "munits"-> munits
-]
-];
-
-buildreal4bMatrix[datasr_,En_,k_]:=Module[{fakeEn,S2ba,S2b},
-S2ba=stabilityMatrix[realdatato4beam,getEquations[realdatato4beam,En,-1.,k,"xflavor"-> False],"xflavor"-> False];
-S2b={{S2ba[[2,2]],S2ba[[2,3]]},{S2ba[[3,2]],S2ba[[3,3]]}};
-Return[S2b]
-];
-
-
-(* ::Subsection::Closed:: *)
 (*Preliminaries for Dispersion Checks*)
 
 
-IdisShifts[data_,cos\[Theta]_,mu_,mubar_,\[CapitalOmega]_,k_,En_,xflavor_]:=Module[{\[Phi]0,\[Phi]1,\[CapitalOmega]p,kp,\[Omega],Vmatter},
+SIpotential[ndens_]:=munits{Diagonal[ndens[[1]]],Diagonal[ndens[[2]]]}
 
-(*Defined in Gail's Blue equation 30 and 31 *)
-\[Phi]0 = Sum[(mu[[i]]-mubar[[i]])         ,{i,1,Length[cos\[Theta]]}];
-\[Phi]1 = Sum[(mu[[i]]-mubar[[i]])cos\[Theta][[i]],{i,1,Length[cos\[Theta]]}];
+
+Phi[rank_,mu_,mubar_,cos\[Theta]_]:=Sum[(mu[[i]]-mubar[[i]])cos\[Theta][[i]]^rank,{i,1,Length[cos\[Theta]]}];
+
+
+IdisShifts[data_,\[Phi]0_,\[Phi]1_,\[CapitalOmega]_,k_]:=Module[{\[CapitalOmega]p,kp,\[Omega],Vmatter},
 
 (* "Shifted" Eigenvalue and k*)
 Vmatter = munits data["Yes"] data["matters"]/mp;
 \[CapitalOmega]p = N[\[CapitalOmega]-Vmatter-\[Phi]0];
 kp = k-\[Phi]1;
-\[Omega]=\[Omega]EMev[En];
 
-Return[{\[CapitalOmega]p,kp,\[Omega]}];
+Return[{\[CapitalOmega]p,kp}];
 ]
 
 
 
-IdisBottom[data_,cos\[Theta]_,\[CapitalOmega]_,k_,En_,xflavor_]:=Module[{ndens,\[Phi]0,\[Phi]1,\[CapitalOmega]p,kp,\[Omega],mu,mubar,Vmatter,\[CapitalOmega]minuskpcos\[Theta],result,bottom},
-
-(* neutrino number densities disguised as SI potentials *)
-ndens = ndensities[data,"xflavor"->xflavor];
-mu=munits Diagonal[ndens[[1]] ];
-mubar= munits Diagonal[ndens[[2]] ];
-
-{\[CapitalOmega]p,kp,\[Omega]}=IdisShifts[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,xflavor];
-bottom=\[CapitalOmega]p-kp cos\[Theta];
-Return[bottom];
-]
+IdisBottom[\[CapitalOmega]p_,kp_,cos\[Theta]_]:=\[CapitalOmega]p-kp cos\[Theta]
 
 
 (*Calculates and Returns the nth I for the dispersion check.  Returns a single value of In*)
-Idis[data_,cos\[Theta]_,mu_,mubar_,\[CapitalOmega]_,k_,En_,n_,xflavor_]:=Module[{\[Phi]0,\[Phi]1,\[CapitalOmega]p,kp,\[Omega],Vmatter,\[CapitalOmega]minuskpcos\[Theta],result},
+Idis[data_,cos\[Theta]_,mu_,mubar_,\[CapitalOmega]_,k_,En_,n_]:=Module[{\[Phi]0,\[Phi]1,\[CapitalOmega]p,kp,\[Omega],Vmatter,\[CapitalOmega]minuskpcos\[Theta],result},
 
-{\[CapitalOmega]p,kp,\[Omega]}=IdisShifts[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,xflavor];
-\[CapitalOmega]minuskpcos\[Theta]=IdisBottom[data,cos\[Theta],\[CapitalOmega],k,En,xflavor];
+(*Defined in Gail's Blue equation 30 and 31 *)
+\[Phi]0 = Phi[0,mu,mubar,cos\[Theta]];
+\[Phi]1 = Phi[1,mu,mubar,cos\[Theta]];
+
+\[Omega]=\[Omega]EMev[En];
+{\[CapitalOmega]p,kp}=IdisShifts[data,\[Phi]0,\[Phi]1,\[CapitalOmega],k];
+\[CapitalOmega]minuskpcos\[Theta]=IdisBottom[\[CapitalOmega]p,kp,cos\[Theta]];
 
 (* make sure the denominator is not tiny *)
 (*On[Assert];
@@ -187,13 +190,12 @@ Return[result];
 dispersionCheck[data_,cos\[Theta]_,\[CapitalOmega]_,k_,En_,xflavor_]:=Module[{I0,I1,I2,ndens,mu,mubar},
 (* neutrino number densities disguised as SI potentials *)
 ndens = ndensities[data,"xflavor"->xflavor];
-mu=munits Diagonal[ndens[[1]] ];
-mubar= munits Diagonal[ndens[[2]] ];
+{mu,mubar}=SIpotential[ndens];
 
 (*The condition is that Equatrion (43), below, should be 0 if the vacuum is*)
-I0 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,0,xflavor];
-I1 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,1,xflavor];
-I2 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,2,xflavor];
+I0 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,0];
+I1 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,1];
+I2 = Idis[data,cos\[Theta],mu,mubar,\[CapitalOmega],k,En,2];
 Return[Abs[(I0+1.)(I2-1.)-I1^2]]
 ];
 
@@ -215,23 +217,12 @@ Return[dispersionCheck[data,cos\[Theta],\[CapitalOmega],k,En,xflavor]]
 ];
 
 
-testreal4bdispersionCheck[k_,En_,xflavor_]:=Module[{cos\[Theta],I0,I1,I2,\[CapitalOmega],data,equations,datasr,rebindata},
-data = ImportData[inpath <> "112Msun_100ms_DO.h5"];
-datasr=SelectSingleRadius[data,250];
-rebindata=realdatato4beam[datasr];
-cos\[Theta]=rebindata["mids"];
-equations = getEquations[rebindata,En,-1.,k,"xflavor"->xflavor];
-\[CapitalOmega]=evscale[k,stabilityMatrix[rebindata,equations,"xflavor"->xflavor],kx,"output"-> "Eigenvalues"][[1]];
-Return[dispersionCheck[rebindata,cos\[Theta],\[CapitalOmega],k,En,xflavor]]
-];
-
-
 (* ::Subsection::Closed:: *)
 (*Real data dispersion check*)
 
 
 (*Calculates the dispersion relation based on a hdf file of a stability calculation. Then, returns ordered pairs of the dispersion relation together with the percent difference of \[CapitalOmega]p-kpcos\[Theta]*)
-realdatadispcalc[infile_,hdffile_,ri_]:=Module[{data,datasr,pos,testpos,griddata,testk,test\[CapitalOmega]s,evecchecks,dischecks,ops,ins,bottoms,cos\[Theta],sumbottoms,percentdiff,mindiff},
+realdatadispcalc[infile_,hdffile_,ri_]:=Module[{data,datasr,pos,testpos,griddata,testk,test\[CapitalOmega]s,evecchecks,dischecks,ops,ins,bottoms,cos\[Theta],sumbottoms,percentdiff,mindiff,\[CapitalOmega]p,kp,\[Phi]0,\[Phi]1,ndens,mu,mubar},
 data=ImportData[infile];
 datasr=SelectSingleRadius[data,ri];
 cos\[Theta]=data["mids"];
@@ -249,7 +240,12 @@ Print[test\[CapitalOmega]s];
 Print[ins["testE"]];
 *)
 (*Returns a list of ordered pairs of the maximum component of each of the {neutrino, antineutrino} eigenvectors*)
-bottoms=Table[IdisBottom[datasr,cos\[Theta],test\[CapitalOmega]s[[i]],testk,ins["testE"],ops["xflavor"]],{i,1,Length[test\[CapitalOmega]s]}]; (*Values of \[CapitalOmega]p-kpcos\[Theta] for each eigenvalue, and each angle.*)
+ndens = ndensities[datasr,"xflavor"->ops["xflavor"]];
+{mu,mubar} = SIpotential[ndens];
+\[Phi]0 = Phi[0,mu,mubar,cos\[Theta]];
+\[Phi]1 = Phi[1,mu,mubar,cos\[Theta]];
+{\[CapitalOmega]p,kp}=Transpose@Table[IdisShifts[datasr,\[Phi]0,\[Phi]1,test\[CapitalOmega]s[[i]],testk],{i,1,Length[test\[CapitalOmega]s]}];
+bottoms=Table[IdisBottom[\[CapitalOmega]p[[i]],kp[[i]],cos\[Theta]],{i,1,Length[test\[CapitalOmega]s]}]; (*Values of \[CapitalOmega]p-kpcos\[Theta] for each eigenvalue, and each angle.*)
 sumbottoms=Table[2 test\[CapitalOmega]s[[i]]- bottoms[[i]],{i,1,Length[test\[CapitalOmega]s]}]; (*value of \[CapitalOmega]p+kpcos[\[Theta]] done via 2\[CapitalOmega]p-(\[CapitalOmega]ps-kpcos\[Theta])*)
 percentdiff=Table[bottoms[[i]]/sumbottoms[[i]],{i,1,Length[test\[CapitalOmega]s]}]; (*percent difference; (\[CapitalOmega]p-kpcos\[Theta])/(\[CapitalOmega]p+kpcos\[Theta]) for each \[CapitalOmega]p and angle*)
 mindiff=Table[Min[percentdiff[[i]]],{i,1,Length[percentdiff[[1]]]}]; (*For each eigenvalue, takes the minimum percent difference across the 10 angular bins*)
@@ -291,22 +287,69 @@ Return[ans];
 (*Check that ellipse construction results in the correct moments given hand-chosen moments*)
 
 
-ellipsefiterrors[m0_,m1_,m2_]:=Module[{er0,er1,er2,fits},
-fits=eBoxFitToMoments[m0,m1,m2,getInitialGuess[m0,m1,m2]];
-er0=(ellipseMoments[fits[[1]],fits[[2]],fits[[3]]][[1]]-m0)/m0;
-er1=(ellipseMoments[fits[[1]],fits[[2]],fits[[3]]][[2]]-m1)/m1;
-er2=(ellipseMoments[fits[[1]],fits[[2]],fits[[3]]][[3]]-m2)/m2;
-(*Print["Initial Guess: ", getInitialGuess[m0,m1,m2]];*)
-Return[{er0,er1,er2}];
-]
-(*Ellipse fits to 3 moments and returns the percent errors*)
+(*Ellipse fits to artifical parameters*)
+eCheckArtificial[]:= Module[{pans,ans,mom,igs},
+mom={1., 1. 10^-8, N[1/3]};
+igs=Apply[getInitialGuess,mom];
+pans=Apply[eSimpFitToMoments,Join[mom,{igs}]];
+ans=Apply[ellipseparaerrors,Join[pans,mom]];
+Return[ans]
+];
 
-ellipsefitrealdatacheck[]:=Module[{file,moms},
+ellipsefitrealdatacheck[]:=Module[{file,moms,igs,paras,errs},
 file=inpath<>"4timesHigh_1D_withV_withPairBrems_MC_moments.h5";
-moms=Quiet[Quiet[getMoments[file,1,1],{Import::general}],{Import::noelem}]; (*quiets only the import complaint that there are no midpoints for moments*)
-Return[ellipsefiterrors[moms[[1]],moms[[2]]//Abs,moms[[3]]]]
+moms=getMoments[file,220,1];
+igs=Apply[getInitialGuess,moms];
+paras=Apply[eSimpFitToMoments,Join[moms,{igs}]];
+errs=Apply[ellipseparaerrors,Join[paras,moms]];
+Return[errs]
 ];
 (*Imports real CSSN data and then calls ellipse fit errors for the tests file*)
+
+
+(* ::Subsection::Closed:: *)
+(*xflavor tests*)
+
+
+ncheck[file_,ri_]:=Module[{ncheckdata},
+ncheckdata=SelectSingleRadius[ImportData[file],ri];
+Return[siPotential[ncheckdata,"xflavor"->True]>siPotential[ncheckdata,"xflavor"->False]];
+];
+
+netleptoncheck[file_,ri_]:=Module[{ncheckdata},
+ncheckdata=SelectSingleRadius[ImportData[file],ri];
+Return[((Tr[ndensities[ncheckdata,"xflavor"-> True][[1]]]+Tr[ndensities[ncheckdata,"xflavor"-> True][[3]]])
+-(Tr[ndensities[ncheckdata,"xflavor"-> True][[2]]]+Tr[ndensities[ncheckdata,"xflavor"-> True][[3]]]))==
+((Tr[ndensities[ncheckdata,"xflavor"->False][[1]]]+Tr[ndensities[ncheckdata,"xflavor"-> False][[3]]])
+-(Tr[ndensities[ncheckdata,"xflavor"-> False][[2]]]+Tr[ndensities[ncheckdata,"xflavor"-> False][[3]]]))]
+];
+
+
+(* ::Subsection::Closed:: *)
+(*Morinaga Plot*)
+
+
+Options[MorinagaTestPlot]={"xflavor"->False};
+MorinagaTestPlot[ri_,\[Omega]_,res_,OptionsPattern[]]:=Module[{data,datain,cos\[Theta],datainsr,costheta,datapos,evspos,evsposre,kspos,mu,mubar,\[Phi]0,\[Phi]1,Vmatter,\[CapitalOmega]p,kp,pts,ptsre,p1,g1},
+exportkadapt[kAdapt[inpath<>"112Msun_100ms_DO.h5",ri,ri,\[Omega],-1,res,"xflavor"-> OptionValue["xflavor"],"ktarget"->4.22 10^-19,"krange"-> {0.6,1.4}],"MorinagaTestPlot"];
+data=ImportCalcGridData["MorinagaTestPlot.h5"];
+datain=ImportData[inpath<>"112Msun_100ms_DO.h5"];
+datainsr=SelectSingleRadius[datain,ri];
+cos\[Theta]=datain["mids"];
+datapos=Position[data["ri"],ri];
+evspos=Table[Extract[data["evs_Im"],datapos[[i]]]//Max,{i,1,Length[datapos]}];
+evsposre=Table[Extract[data["evs_Re"],datapos[[i]]]//Max,{i,1,Length[datapos]}];
+kspos=Table[Extract[data["k"],datapos[[i]]],{i,1,Length[datapos]}];
+{mu,mubar}=SIpotential[ndensities[datainsr,"xflavor"->OptionValue["xflavor"]]];
+\[Phi]0 = Phi[0,mu,mubar,cos\[Theta]];
+\[Phi]1 = Phi[1,mu,mubar,cos\[Theta]];
+{\[CapitalOmega]p,kp}=Transpose@Table[IdisShifts[datainsr,\[Phi]0,\[Phi]1,evsposre[[i]],kspos[[i]]],{i,1,Length[evspos]}];
+
+pts=Transpose@{1/(hbar c 10^-4) kp,1/(hbar c 10^-4) evspos};
+ptsre=Transpose@{1/(hbar c 10^-4) kp,1/(hbar c 10^-4) \[CapitalOmega]p};
+p1=ListPlot[pts,PlotRange-> {{-30,60},All},Filling-> Bottom,AxesLabel-> {Style["k' (\!\(\*SuperscriptBox[\(10\), \(-4\)]\) \!\(\*SuperscriptBox[\(cm\), \(-1\)]\))",FontSize-> 14,Bold],Style["Im[\[CapitalOmega]] (\!\(\*SuperscriptBox[\(10\), \(-4\)]\) \!\(\*SuperscriptBox[\(cm\), \(-1\)]\))",FontSize-> 14,Bold]},ImageSize-> Scaled[0.45],Frame-> False,PlotStyle-> Black];
+Return[p1]
+];
 
 
 (* ::Subsection::Closed:: *)
@@ -323,8 +366,10 @@ exportkadapt[outevs,"112Msun_100ms_r200_r300_nox_test"]
 
 
 Timing[tr=TestReport["testfiles.wlt"];]
-Show[rowplot]
 Table[tr["TestResults"][i],{i,1,13}]//MatrixForm
+
+
+
 
 
 

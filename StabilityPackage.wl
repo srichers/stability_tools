@@ -46,9 +46,13 @@ eBoxFitSingleRadius::usage=
 "fit a single radius using the box fit parameters"
 Com::usage=
 "test"
-ellipseMoments::usage=
+ellipseBoxMoments::usage=
 "calculate the moments from an ellipse (box fit) with parameters a, \[Beta], \[Chi]"
+ellipseSimpMoments::usage=
+"calculate the moments from an ellipse (simple fit) with parameters a, b, cx"
 eBoxFitToMoments::usage=
+"given 3 input moments and set of guess parameters, fits ellipse parameters to moments"
+eSimpFitToMoments::usage=
 "given 3 input moments and set of guess parameters, fits ellipse parameters to moments"
 getMoments::usage=
 "takes moments out of moment data for a given file, radius, species. Energy integrated"
@@ -62,6 +66,18 @@ ImportCalcOptions::usage=
 "Imports 3 option settings, xflavor,inverse,krange"
 ImportCalcInputs::usage=
 "Imports the calc file, rsrt, rend,testE,hi,nstep used in the calculation"
+ellipsefitfile::usage=
+"gets ellipse parameters for a moments file"
+ellipseparaerrors::usage=
+"gives the errors in the ellisope fit approx for some given parameters"
+boxToSimp::usage=
+"converts from box transform to simple ellipses parameters"
+simpToBox::usage=
+"converts from simple ellipse parameters to box transform"
+ellipseFitSingleSpecies::usage=
+"fits a single species to an ellispe from rsrt to rend"
+getInitialBoxGuess::usage=
+"gets intiial guess for box transform coordinates"
 
 
 (* ::Subsection::Closed:: *)
@@ -160,12 +176,13 @@ tot=(Tr[m[[1]]]+Tr[m[[2]]]+2 Tr[m[[3]]]);
 Return[tot]
 ]
 (*This function finds the asymetry factor between the electron (anti)neutrinos and the x (anti)neutrinos *)
+(*This is likely not needed and will need to be removed.*)
 Options[Bfactor]={"xflavor"-> True};
 Bfactor[data_,OptionsPattern[]]:=Module[{B,Bb,m},
 m=munits ndensities[data,"xflavor"-> OptionValue["xflavor"]];
-B=Tr[m[[3]]]/Tr[m[[1]]];
-Bb=Tr[m[[3]]]/Tr[m[[2]]];
-Return[{B,Bb}];
+B=0.(*Tr[m[[3]]]/Tr[m[[1]]]*);
+Bb=0.(*Tr[m[[3]]]/Tr[m[[2]]]*);
+Return[{B,Bb}]
 ];
 
 
@@ -215,7 +232,7 @@ Return[{H,Hb,\[Rho],\[Rho]b,A,Ab,\[Delta]H,\[Delta]Hb}]
 ];
 
 
-Com[A_,B_]:=Module[{a=A,b=B},Return[A.B-B.A]];
+Com[A_,B_]:=Module[{a=A,b=B},Return[A . B-B . A]];
 
 
 (*Calculates the equations of motion by computing the relvant commutators. 
@@ -363,10 +380,10 @@ Export[ToString[name]<>".h5",  {
 "/grid_elements/k"-> {"Data"-> outevs[[1,All,3]],"Attributes"-> {"Units"-> "Ergs"}},
 "/grid_elements/evs_Re"-> {"Data"-> Re[outevs[[1,All,4,1]]],"Attributes"-> {"Units"-> "Ergs"}},
 "/grid_elements/evs_Im"-> {"Data"-> Im[outevs[[1,All,4,1]]],"Attributes"-> {"Units"-> "Ergs"}},
-"/grid_elements/evecs_nu_Re"-> {"Data"-> Re[outevs[[1,All,4,2]][[All,All,1;;10]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
-"/grid_elements/evecs_nu_Im"-> {"Data"-> Im[outevs[[1,All,4,2]][[All,All,1;;10]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
-"/grid_elements/evecs_nubar_Re"-> {"Data"-> Re[outevs[[1,All,4,2]][[All,All,11;;20]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
-"/grid_elements/evecs_nubar_Im"-> {"Data"-> Im[outevs[[1,All,4,2]][[All,All,11;;20]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
+"/grid_elements/evecs_nu_Re"-> {"Data"-> Re[outevs[[1,All,4,2]][[All,All,1;;1/2 Length[outevs[[1,All,4,2]][[All,All]][[1]]] ]] ],"Attributes"-> {"Norm?"-> "Unnormalized"}},
+"/grid_elements/evecs_nu_Im"-> {"Data"-> Im[outevs[[1,All,4,2]][[All,All,1;;1/2 Length[outevs[[1,All,4,2]][[All,All]][[1]]]]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
+"/grid_elements/evecs_nubar_Re"-> {"Data"-> Re[outevs[[1,All,4,2]][[All,All,1+(1/2 Length[outevs[[1,All,4,2]][[All,All]][[1]]]);;Length[outevs[[1,All,4,2]][[All,All]][[1]]]]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
+"/grid_elements/evecs_nubar_Im"-> {"Data"-> Im[outevs[[1,All,4,2]][[All,All,1+(1/2 Length[outevs[[1,All,4,2]][[All,All]][[1]]]);;Length[outevs[[1,All,4,2]][[All,All]][[1]]]]]],"Attributes"-> {"Norm?"-> "Unnormalized"}},
 "/grid_elements/Vsi"-> {"Data"-> outevs[[1,All,5]],"Attributes"-> {"Units"-> "Ergs"}},
 "/settings/options"-> {"Data"-> ToString[outevs[[2]]],"Attributes"-> {"Order"-> "xflavor value, inverse value,krange"}},
 "/settings/inputs"-> {"Data"-> ToString[outevs[[3]]],"Attributes"-> {"Order"-> "file,rsrt,rend,testE,hi,nstep"}}
@@ -440,45 +457,150 @@ Return[out] (*Close reap over r*)
 
 
 getMoments[file_,r_,species_]:= Module[{data,datasr,moments},
-data=ImportData[file];
+data=ImportData[file]//Quiet;
 datasr=SelectSingleRadius[data,r];
-moments={Sum[datasr["Endensity"][[species,E,1]],{E,1,Length[data["freqs"]]-1}],Sum[datasr["Endensity"][[species,E,2]],{E,1,Length[data["freqs"]]-1}],Sum[datasr["Endensity"][[species,E,3]],{E,1,Length[data["freqs"]]-1}]};
+moments={
+Sum[(datasr["Endensity"][[species,E,1]])/(h data["freqmid"][[E]]),{E,1,Length[data["freqs"]]-1}],
+Sum[(datasr["Endensity"][[species,E,2]])/(h data["freqmid"][[E]]),{E,1,Length[data["freqs"]]-1}],
+Sum[(datasr["Endensity"][[species,E,3]])/(h data["freqmid"][[E]]),{E,1,Length[data["freqs"]]-1}]
+};
+If[moments[[2]]< 0., moments[[2]]=10^-8];
 Return[moments];
 ];
 
 
 getInitialGuess[m0_,m1_,m2_]:=Module[{foc1234,ag,\[Beta]g,\[Chi]g,cg,bg,arg\[Beta],arg\[Chi]},
-foc1234[x_,y_,z_]:=(1/(4 Pi ) )(m0 + 3 z m1+(5/2 (3 (m0 -m2 )/2 x^2+3 (m0 -m2 )/2 y^2+3 m2 z^2-m0)));
-ag=0.5 (foc1234[Sin[ArcCos[-1.]],0.,-1.]+foc1234[Sin[ArcCos[1.]],0.,1.]); (*semi-major axis guess*)
+ag=0.5 m0; 
+bg=0.5 m0 3/2 (1- m2/m0);
+cg=0.5 m1;
+(*(*semi-major axis guess*)
 cg=Abs[foc1234[Sin[ArcCos[1.]],0.,1.]-ag]; (*horizontal shift from the center *)
 bg=Sqrt[foc1234[Sin[ArcCos[0.]],0.,0.]^2/(1-(cg/ag)^2)]; (*semi-minor axis*)
-Assert[bg<= ag]; (*Assert the semi-major axis is larger than the semi-minor*)
-If[bg> ag, Assert[bg/ag<= 1.001]]; (* If bg>ag, assert that the difference is small*)
 If[bg> ag && bg/ag<= 1.001, ag=ag+2(bg-ag)]; (* If bg>ag, and the difference is small, switches them in the transform*)
-arg\[Beta]=((2 bg/ag)-1);
-arg\[Chi]=((2 cg/ag)-1);
-\[Beta]g=ArcTanh[arg\[Beta]]; (*box transform b= a/2( tanh[\[Beta]]+1 *)
-\[Chi]g=ArcTanh[arg\[Chi]]; (*box transform c=a/2( tanh[\[Chi]]+1 *)
-Assert[Between[arg\[Beta],{-1.01,1.01}]];
-Assert[Between[arg\[Chi],{-1.01,1.01}]];
-(*Print[{ag,bg,cg,arg\[Beta],arg\[Chi]}];*)
+*)
+Return[{ag,bg,cg}]
+];
+
+
+getInitialBoxGuess[m0_,m1_,m2_]:=Module[{foc1234,ag,\[Beta]g,\[Chi]g,cg,bg,arg\[Beta],arg\[Chi]},
+ag=0.5 m0; 
+\[Beta]g=0.;
+\[Chi]g=-10;
+(*(*semi-major axis guess*)
+cg=Abs[foc1234[Sin[ArcCos[1.]],0.,1.]-ag]; (*horizontal shift from the center *)
+bg=Sqrt[foc1234[Sin[ArcCos[0.]],0.,0.]^2/(1-(cg/ag)^2)]; (*semi-minor axis*)
+If[bg> ag && bg/ag<= 1.001, ag=ag+2(bg-ag)]; (* If bg>ag, and the difference is small, switches them in the transform*)
+*)
 Return[{ag,\[Beta]g,\[Chi]g}]
 ];
 
 
-ellipseMoments[af_,\[Beta]f_,\[Chi]f_]:=Module[{ebox,esbox},
+ellipseBoxMoments[af_,\[Beta]f_,\[Chi]f_]:=Module[{ebox,esbox},
 ebox[a_,\[Beta]_,\[Chi]_,m_]:=(a (1+Tanh[\[Beta]]) (1/4 a^2 m (1+Tanh[\[Beta]]) (1+Tanh[\[Chi]])+a Sqrt[-a^2 (-1+m^2)+1/4 a^2 m^2 (1+Tanh[\[Beta]])^2
 +1/4 a^2 (-1+m^2) (1+Tanh[\[Chi]])^2]))/(2 (a^2+m^2 (-a^2+1/4 a^2 (1+Tanh[\[Beta]])^2)));
-esbox[mom_]:=2 Pi NIntegrate[m^mom ebox[af,\[Beta]f,\[Chi]f,m],{m,-1.,1.},MinRecursion-> 8,MaxRecursion->16];
+esbox[mom_]:=  NIntegrate[m^mom ebox[af,\[Beta]f,\[Chi]f,m],{m,-1.,1.},MaxRecursion-> 16];
 Return[{esbox[0],esbox[1],esbox[2]}]
 ];
 
 
+ellipseSimpMoments[af_?NumericQ,bf_?NumericQ,cxf_?NumericQ]:=Module[{ebox,esbox,esimp,essimp},
+esimp[a_,b_,cx_,m_]:=(b (b m cx+a Sqrt[b^2 m^2-a^2 (-1+m^2)+(-1+m^2) cx^2]))/(a^2+(-a^2+b^2) m^2);
+essimp[mom_]:=  NIntegrate[m^mom esimp[af,bf,cxf,m],{m,-1.,1.},MaxRecursion-> 16,AccuracyGoal->6];
+Return[{essimp[0],essimp[1],essimp[2]}]
+];
+
+
+(*Converts the 3 box transform parameters to the simple ellipse parameters*)
+boxToSimp[a_,\[Beta]_,\[Chi]_]:=Module[{b,cx},
+b=a/2 (Tanh[\[Beta]]+1);
+cx=a/2 (Tanh[\[Chi]]+1);
+Return[{a,b,cx}]
+];
+
+
+(*Converts the 3 simple elipse parameters into the box transform parameters*)
+simpToBox[a_,b_,cx_]:=Module[{\[Beta],\[Chi]},
+\[Beta]=ArcTanh[(2 b)/a-1];
+\[Chi]=ArcTanh[(2 cx)/a-1];
+Return[{a,\[Beta],\[Chi]}]
+];
+
+
 (*Given 3 moments, fit parameters a, \[Beta], and \[Chi] so ellipseMoments match*)
-eBoxFitToMoments[m0_,m1_,m2_,guesses_]:=Module[{emoments,br,g0=guesses,af,\[Beta]f,\[Chi]f},
-br=FindRoot[{ellipseMoments[af,\[Beta]f,\[Chi]f][[1]]-m0,ellipseMoments[af,\[Beta]f,\[Chi]f][[2]]-m1,ellipseMoments[af,\[Beta]f,\[Chi]f][[3]]-m2},{{af,g0[[1]]},{\[Beta]f,g0[[2]]},{\[Chi]f,g0[[3]]}},Evaluated->False,MaxIterations-> 700];
+eBoxFitToMoments[m0_,m1_,m2_,guesses_]:=Module[{emoments,br,g0=guesses,af,\[Beta]f,\[Chi]f,momeqns},
+momeqns=ellipseBoxMoments[af,\[Beta]f,\[Chi]f];
+br=FindRoot[{momeqns[[1]]-m0,momeqns[[2]]-m1,momeqns[[3]]-m2},{{af,g0[[1]]},{\[Beta]f,g0[[2]]},{\[Chi]f,g0[[3]]}},Evaluated->False,MaxIterations-> 1000,AccuracyGoal-> Infinity];
 Return[{af/.br,\[Beta]f/.br,\[Chi]f/.br}]
 ];
+
+
+eSimpFitToMoments[m0_,m1_,m2_,guesses_]:=Module[{emoments,br,g0=guesses,af,bf,cf,momeqns},
+momeqns=ellipseSimpMoments[af,bf,cf];
+br=FindRoot[{(momeqns[[1]]-m0)/m0,(momeqns[[2]]-m1)/m0,(momeqns[[3]]-m2)/m0},{{af,g0[[1]]},{bf,g0[[2]]},{cf,g0[[3]]}},Evaluated->False,MaxIterations-> 1000,AccuracyGoal-> 6];
+Return[{af/.br//Re,bf/.br//Re,cf/.br//Re}]
+];
+
+
+ellipseparaerrors[a_,b_,cx_,m0_,m1_,m2_]:=Module[{er0,er1,er2,fits},
+(*again evaluate only once*)
+er0=(ellipseSimpMoments[a,b,cx][[1]]-m0)/m0;
+er1=(ellipseSimpMoments[a,b,cx][[2]]-m1)/m0;
+er2=(ellipseSimpMoments[a,b,cx][[3]]-m2)/m0;
+Return[{er0,er1,er2}];
+];
+
+
+ellipseFitSingleSpecies[file_,species_,rsrt_,rend_]:=Module[{moms,igs,paras,errs,out,simpparas,boxparas,simperrs,boxerrs},
+out=Reap[
+	Do[
+		moms=getMoments[file,ri,species];
+		igs=Apply[getInitialGuess,moms];
+		simpparas=Apply[eSimpFitToMoments,Join[moms,{igs}]]//Re;
+		simperrs=Apply[ellipseparaerrors,Join[simpparas,moms]];
+		Sow[{simpparas,simperrs}];
+	,{ri,rsrt,rend}](*Clsoe Do *)
+][[2,1]];(*Close Reap*)
+Return[out];
+];
+
+
+(*Fits a file to ellispes by trying both the simpel ellipse method and the box method. For each radius, it keeps the fit with the lowerst error.  the default parameters are the simple parameters a, b, and cx.*)
+ellipsefitfile[file_]:=Module[{moms,igs,paras,errs,out,simpparas,boxparas,simperrs,boxerrs},
+out=Reap[
+	Do[
+	(*moms is a list with 3 entires, one for each species. Each entry is a list of 3 moments.
+	mom[[species,moment]]*)
+	moms={getMoments[file,ri,1],getMoments[file,ri,2],getMoments[file,ri,3]};
+		If[ri==1,
+		(*igs=a list with 3 entries, one for each species. Each entry is a list of 3 parameters.
+		igs[[species,ellispe parameter]]*)
+		igs=Table[Apply[getInitialGuess,moms[[i]] ],{i,1,3}], (*simple parametrers!*)
+		igs=paras
+		];
+	(*simpparas is a list with 3 entires, one for each species. Each entry is a list of 3 ellipse parameters
+	simppparas[[species,parameter]]
+	same for box paras*)
+	simpparas=Table[Apply[eSimpFitToMoments,Join[moms[[i]],{igs[[i]]}]],{i,1,3}];
+	boxparas=Table[Apply[eBoxFitToMoments,Join[moms[[i]],{Apply[boxToSimp,igs[[i]]]}]],{i,1,3}]; (*Converted guesses to box*)
+	(*simperrs is a list with 3 entries, one per species. Each entry is alist of 3 errors, one for each parameters
+	simperrs[[species,error in parameter i]]
+	same for boxerrs*)
+	simperrs=Table[Apply[ellipseparaerrors,Join[simpparas[[i]],moms[[i]]]],{i,1,3}]; 
+	boxerrs=Table[Apply[ellipseparaerrors,Join[Apply[boxToSimp,boxparas[[i]]],moms[[i]]]],{i,1,3}];
+	Which[
+	(*Picks which parameter set to keep based on the average of the average relative error over the 3 species*)
+		Round[1/3 Total[Table[1/3 Total[simperrs[[i]]],{i,1,3}]]] <= Round[1/3 Total[Table[1/3 Total[boxerrs[[i]]],{i,1,3}]]],
+			Sow[{simpparas,Table[Apply[ellipseparaerrors,Join[simpparas[[i]],moms]],{i,1,3}]}];
+			paras=simpparas;,
+		Round[1/3 Total[Table[1/3 Total[simperrs[[i]]],{i,1,3}]]] > Round[1/3 Total[Table[1/3 Total[boxerrs[[i]]],{i,1,3}]]],
+			Sow[{Apply[boxToSimp,boxparas],Table[Apply[ellipseparaerrors,Join[Apply[boxToSimp,boxparas[[i]]],moms]],{i,1,3}]}];
+			paras=Apply[boxToSimp,boxparas];
+		];
+	,{ri,1,10}];
+][[2,1]];
+Return[out];
+];
+
 
 
 End[]
